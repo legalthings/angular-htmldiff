@@ -1,0 +1,13 @@
+{
+  "name": "angular-htmldiff",
+  "version": "1.0.1",
+  "description": "Angular module for htmldiff.js",
+  "main": "src/angular-htmldiff.js",
+  "dependencies": {},
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/legalthings/angular-htmldiff.git"
+  },
+  "homepage": "https://github.com/legalthings/angular-htmldiff#readme"
+}

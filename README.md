@@ -5,6 +5,7 @@ A simple angular wrapper for [htmldiff.js](https://github.com/tnwinc/htmldiff.js
 ## Installation
 
     bower install angular-htmldiff --save
+    npm install angular-htmldiff --save
 
 ## Output
 
