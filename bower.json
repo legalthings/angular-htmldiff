@@ -1,0 +1,24 @@
+{
+  "name": "angular-htmldiff",
+  "description": "Angular module for htmldiff.js",
+  "homepage": "http://github.com/legalthings/angular-htmldiff",
+  "license": "MIT",
+  "authors": [
+    "LegalThings <info@legalthings.net>"
+  ],
+  "main": "src/angular-htmldiff.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/legalthings/angular-htmldiff.git"
+  },
+  "dependencies": {
+    "angular": "~1.5.8"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec",
+    "**/*.spec.js"
+  ]
+}
