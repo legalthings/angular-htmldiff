@@ -2,6 +2,12 @@
 (function() {
   var Match, calculate_operations, consecutive_where, create_index, diff, find_match, find_matching_blocks, html_to_tokens, is_end_of_tag, is_start_of_tag, is_tag, is_whitespace, isnt_tag, op_map, recursively_find_matching_blocks, render_operations, wrap;
 
+  // tag exceptions
+  var tag_exceptions = ['img'];
+  var is_tag_exception;
+  var isnt_tag_exception;
+  var is_tag_type;
+
   is_end_of_tag = function(char) {
     return char === '>';
   };
@@ -14,6 +20,31 @@
     return /^\s+$/.test(char);
   };
 
+  is_tag_type = function(token, type) {
+    var string = '^\\s*<.*' + type + '.*>\\s*$';
+    var regex = new RegExp(string, 'i');
+    return regex.test(token);
+  };
+
+  is_tag_exception = function(token) {
+    if (isnt_tag(token)) {
+      return false;
+    }
+
+    for (var i = 0; i < tag_exceptions.length; i++) {
+      var type = tag_exceptions[i];
+      if (is_tag_type(token, type)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  isnt_tag_exception = function(token) {
+    return !is_tag_exception(token);
+  }
+
   is_tag = function(token) {
     return /^\s*<[^>]+>\s*$/.test(token);
   };
@@ -21,6 +52,7 @@
   isnt_tag = function(token) {
     return !is_tag(token);
   };
+
 
   Match = (function() {
     function Match(start_in_before1, start_in_after1, length1) {
@@ -260,13 +292,22 @@
     return post_processed;
   };
 
-  consecutive_where = function(start, content, predicate) {
+  consecutive_where = function(start, content, predicate, predicate_operator) {
     var answer, i, index, last_matching_index, len, token;
     content = content.slice(start, +content.length + 1 || 9e9);
     last_matching_index = void 0;
     for (index = i = 0, len = content.length; i < len; index = ++i) {
       token = content[index];
-      answer = predicate(token);
+
+      if (predicate.constructor === Array) {
+        var answers = predicate.map(function (func) {
+          return func(token);
+        });
+        answer = predicate_operator === 'or' ? answers.indexOf(true) >= 0 : answers.indexOf(false) === -1;
+      } else {
+        answer = predicate(token);
+      }
+
       if (answer === true) {
         last_matching_index = index;
       }
@@ -289,15 +330,17 @@
       if (position >= length) {
         break;
       }
-      non_tags = consecutive_where(position, content, isnt_tag);
+      non_tags = consecutive_where(position, content, [isnt_tag, is_tag_exception], 'or');
+      tags = consecutive_where(position, content, [is_tag, isnt_tag_exception], 'and');
+
       position += non_tags.length;
       if (non_tags.length !== 0) {
         rendering += "<" + tag + ">" + (non_tags.join('')) + "</" + tag + ">";
       }
+
       if (position >= length) {
         break;
       }
-      tags = consecutive_where(position, content, is_tag);
       position += tags.length;
       rendering += tags.join('');
     }
