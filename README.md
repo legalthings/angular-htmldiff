@@ -42,10 +42,12 @@ Note that you can style the `ins` and `del` tags however you want.
 
             ins {
                 background-color: lightgreen;
+                padding: 3px;
             }
 
             del {
                 background-color: pink;
+                padding: 3px;
             }
         </style>
     </head>
