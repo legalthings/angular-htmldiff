@@ -367,7 +367,7 @@
 
   op_map = {
     equal: function(op, before_tokens, after_tokens) {
-      return before_tokens.slice(op.start_in_before, +op.end_in_before + 1 || 9e9).join('');
+      return after_tokens.slice(op.start_in_after, +op.end_in_after + 1 || 9e9).join('');
     },
     insert: function(op, before_tokens, after_tokens) {
       var val;
