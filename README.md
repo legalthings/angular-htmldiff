@@ -28,6 +28,7 @@ Note that you can style the `ins` and `del` tags however you want.
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-htmldiff/src/htmlminifier.min.js"></script> <!-- optional: use to normalize html before comparing -->
         <script src="bower_components/angular-htmldiff/src/htmldiff.js"></script>
         <script src="bower_components/angular-htmldiff/src/angular-htmldiff.js"></script>
 
