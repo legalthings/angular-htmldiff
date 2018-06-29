@@ -10,6 +10,8 @@
     var module = angular.module('htmldiff', []);
 
     module.service('htmldiff', [function () {
-        return htmldiff;
+        return function (before, after) {
+            return htmldiff(before, after);
+        }
     }]);
 }();

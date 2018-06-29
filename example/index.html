@@ -21,23 +21,28 @@
             ins {
                 background-color: lightgreen;
                 padding: 3px;
+                display: inline-block;
             }
 
             del {
                 background-color: pink;
                 padding: 3px;
+                display: inline-block;
             }
         </style>
     </head>
     <body>
         <h1>Before</h1>
         <div class="html-viewer" id="before">
+            <img src="example.png" width="50">
+            <p>This should stay the same</p>    
             <p>This is an example</p>
             <p>This is another example</p>
         </div>
 
         <h1>After</h1>
         <div class="html-viewer" id="after">
+            <p>This should stay the&nbsp;same</p>
             <p>This is modified</p>
             <p>This is also modified</p>
             <p>This is added</p>
